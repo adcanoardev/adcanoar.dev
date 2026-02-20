@@ -1,6 +1,6 @@
 # 🚀 adcanoar.dev
 
-Minimal one-page portfolio (**anchors**) built with **Next.js + TypeScript + Tailwind**.  
+Minimal one-page portfolio (**anchors**) built with **Next.js (App Router) + TypeScript + Tailwind CSS**.  
 Content-first approach: **Markdown → MDX** (upgrade only when it adds real value).
 
 ---
@@ -57,10 +57,10 @@ Content-first approach: **Markdown → MDX** (upgrade only when it adds real val
 - **Framework:** Next.js (App Router) + React + TypeScript
 - **Styling:** Tailwind CSS
 - **Content:** Markdown first (`.md`), upgrade to MDX (`.mdx`) when needed
-- **Validation:** Zod (forms / input contracts)
-- **Quality:** ESLint · Prettier · TypeScript strict
-- **CI:** GitHub Actions
-- **Deploy:** Vercel
+- **Validation:** Zod (forms / input contracts) — later when forms arrive
+- **Quality:** ESLint · Prettier (later) · TypeScript strict
+- **CI:** GitHub Actions (later)
+- **Deploy:** Vercel (later)
 
 ---
 
@@ -77,14 +77,14 @@ MVP rule:
 ## 🧠 Architecture (high level)
 
 ### 📁 Folders
-- `app/` — routes, layouts, pages (App Router)
-- `components/` — reusable UI components (minimal, composable)
-- `content/` — case studies (`content/projects/*.md` or `.mdx`)
-- `lib/` — utilities, config, content loaders, types
+- `src/app/` — routes, layouts, pages (App Router)
+- `src/components/` — reusable UI components (minimal, composable)
+- `src/content/` — case studies (`content/projects/*.md` or `.mdx`)
+- `src/lib/` — utilities, config, content loaders, types
 - `public/` — static assets (images, icons)
 
 ### 🧾 Content conventions
-- One file per project: `content/projects/<slug>.md(x)`
+- One file per project: `src/content/projects/<slug>.md(x)`
 - Consistent frontmatter (recommended):
   - `title`, `summary`, `stack`, `links`, `highlights`
 
@@ -94,10 +94,9 @@ MVP rule:
 
 Local checks:
 ```bash
-pnpm lint
-pnpm typecheck
-pnpm test
-pnpm build
+npm run lint
+npm run typecheck
+npm run build
 ```
 
 Product checks:
@@ -106,19 +105,40 @@ Product checks:
 - [ ] Accessible semantics (labels, headings, contrast)
 - [ ] Lighthouse: strong Performance / Accessibility / SEO (measurable)
 
+> Notes:
+> - `typecheck` is typically `tsc --noEmit` (we’ll add the script in Phase 1).
+> - Tests are out of MVP for now (we’ll add the minimum later if needed).
+
 ---
 
 ## ▶️ Getting Started
 
 ### Requirements
 - Node.js (LTS)
-- pnpm
+- npm (comes with Node)
+
+### Create the project (already done)
+This repo was scaffolded **at the repository root** with:
+
+```bash
+npx create-next-app@latest . --typescript
+```
+
+Selected options:
+- **Linter:** ESLint
+- **React Compiler:** No
+- **Tailwind CSS:** Yes
+- **src/ directory:** Yes
+- **App Router:** Yes
+- **Import alias:** default `@/*`
 
 ### Install & run
 ```bash
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
+
+Open: `http://localhost:3000`
 
 ---
 
@@ -131,9 +151,9 @@ If needed later, document them in `.env.example`.
 
 ## 🧩 Status
 
-- [ ] MVP scope locked
+- [x] MVP scope locked
 - [ ] Projects selected (3)
-- [ ] App scaffolded
+- [x] App scaffolded
 - [ ] MVP shipped
 - [ ] Production deployed
 
@@ -142,13 +162,13 @@ If needed later, document them in `.env.example`.
 ## 🗺️ Roadmap (with gates)
 
 ### Phase 0 — Scope locked
-- [ ] MVP sections locked (anchors + section list)
+- [x] MVP sections locked (anchors + section list)
 - [ ] 3 projects selected (1 flagship)
 - [ ] Global DoD written (Quality Gates)
 
 ### Phase 1 — Repo & DX
 - [ ] TypeScript strict
-- [ ] ESLint + Prettier + scripts
+- [ ] ESLint + Prettier + scripts (`typecheck`, `format`)
 - [ ] Folder structure in place
 - [ ] CI pipeline (lint/typecheck/build)
 
@@ -182,16 +202,22 @@ If needed later, document them in `.env.example`.
 
 ## 📦 Scripts
 
+Default (Next.js):
 ```bash
-pnpm dev
-pnpm lint
-pnpm typecheck
-pnpm test
-pnpm build
-pnpm start
+npm run dev
+npm run lint
+npm run build
+npm run start
+```
+
+Planned (Phase 1):
+```bash
+npm run typecheck
+npm run format
 ```
 
 ---
 
 ## 📄 License
+
 MIT
