@@ -4,7 +4,9 @@ const Header = () => {
     return (
         <header className="sticky top-0 z-50 bg-white/80 backdrop-blur">
             <Container>
-                <nav>Header</nav>
+                <nav>
+                    <a href="#about">About</a>
+                </nav>
             </Container>
         </header>
     );
