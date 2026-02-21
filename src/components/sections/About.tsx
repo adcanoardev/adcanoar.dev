@@ -1,10 +1,11 @@
+import Section from "@/components/ui/Section";
+
 const About = () => {
-  return (
-    <section id="about" className="scroll-mt-24 py-24">
-        <h2>About</h2>
-        <p>Placeholder</p>
-    </section>
-  );
+    return (
+        <Section id="about" title="About">
+            <p>Placeholder</p>
+        </Section>
+    );
 };
 
-export default About
+export default About;

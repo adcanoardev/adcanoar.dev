@@ -1,4 +1,4 @@
-import Container from "./Container";
+import Container from "@/components/layout/Container";
 
 const Header = () => {
     return (
@@ -6,6 +6,8 @@ const Header = () => {
             <Container>
                 <nav>
                     <a href="#about">About</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#projects">Projects</a>
                 </nav>
             </Container>
         </header>
