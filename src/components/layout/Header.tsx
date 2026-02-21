@@ -1,0 +1,13 @@
+import Container from "./Container";
+
+const Header = () => {
+    return (
+        <header className="sticky top-0 z-50 bg-white/80 backdrop-blur">
+            <Container>
+                <nav>Header</nav>
+            </Container>
+        </header>
+    );
+};
+
+export default Header;
