@@ -6,15 +6,15 @@ import Projects from "@/components/sections/Projects";
 import Skills from "@/components/sections/Skills";
 
 export default function Home() {
-  return (
-    <main>
-      <Container>
-          <About />
-          <Skills />
-          <Projects />
-          <Experience />
-          <Contact />
-      </Container>
-    </main>
-  );
-};
+    return (
+        <main>
+            <Container>
+                <About />
+                <Skills />
+                <Projects />
+                <Experience />
+                <Contact />
+            </Container>
+        </main>
+    );
+}
