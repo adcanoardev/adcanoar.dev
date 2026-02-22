@@ -6,7 +6,7 @@ type SectionProps = {
 
 const Section = ({ id, title, children }: SectionProps) => {
     return (
-        <section id={id} className="scroll-mt-24 py-24">
+        <section id={id} className="scroll-mt-24 min-h-screen">
             <div className="grid gap-8 lg:grid-cols-12">
                 <div className="lg:col-span-4">
                     <h2 className="text-2xl font-semibold">{title}</h2>
