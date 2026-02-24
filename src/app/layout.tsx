@@ -1,22 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
-import DotsNav from "@/components/navigation/DotsNav";
+import AppShell from "@/components/layout/AppShell";
 
-const geistSans = Geist({
-    variable: "--font-geist-sans",
+const sans = Outfit({
     subsets: ["latin"],
+    variable: "--font-sans",
+    weight: ["300", "400", "500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
+const mono = JetBrains_Mono({
     subsets: ["latin"],
+    variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
-    title: "Adrian — Full Stack Developer | Systems Background",
+    title: "Adrián — Full Stack Developer | Systems Background",
     description:
         "Minimal one-page portfolio built with Next.js, TypeScript and Tailwind. Featured projects, case studies, experience and contact.",
 };
@@ -28,11 +27,8 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-                <Header />
-                <DotsNav />
-                {children}
-                <Footer />
+            <body className={`${sans.variable} ${mono.variable} antialiased`}>
+                <AppShell>{children}</AppShell>
             </body>
         </html>
     );

@@ -1,14 +1,13 @@
 @import "tailwindcss";
 
 :root {
+    /* Light defaults */
     --background: #ffffff;
     --foreground: #171717;
-
     --accent: #22cbcc;
-
     --surface: rgba(255, 255, 255, 0.03);
-    --border: rgba(255, 255, 255, 0.08);
-    --muted: rgba(230, 231, 234, 0.7);
+    --border: rgba(255, 255, 255, 0.1);
+    --muted: rgba(23, 23, 23, 0.7);
 }
 
 @theme inline {
@@ -17,12 +16,14 @@
     --font-sans: var(--font-geist-sans);
     --font-mono: var(--font-geist-mono);
 }
-
+/* Dark*/
 @media (prefers-color-scheme: dark) {
     :root {
         --background: #0a0015;
         --foreground: #e6e7ea;
-        --accent: #22cbcc; 
+
+        --accent: #22cbcc;
+
         --surface: rgba(255, 255, 255, 0.035);
         --border: rgba(255, 255, 255, 0.1);
         --muted: rgba(230, 231, 234, 0.72);
@@ -36,9 +37,36 @@ html {
 body {
     background: var(--background);
     color: var(--foreground);
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:
+        var(--font-sans),
+        system-ui,
+        -apple-system,
+        Segoe UI,
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
 }
 
 a {
     color: inherit;
+}
+
+/* Accent glow helpers */
+.glow-accent {
+    box-shadow: 0 0 0 rgba(34, 203, 204, 0);
+}
+
+.glow-accent:hover,
+.glow-accent:focus-visible {
+    box-shadow: 0 0 28px rgba(34, 203, 204, 0.35);
+}
+
+.glow-accent-soft {
+    box-shadow: 0 0 0 rgba(34, 203, 204, 0);
+}
+
+.glow-accent-soft:hover,
+.glow-accent-soft:focus-visible {
+    box-shadow: 0 0 22px rgba(34, 203, 204, 0.22);
 }

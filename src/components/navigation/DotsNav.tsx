@@ -1,11 +1,16 @@
 "use client";
 
 import { sections } from "@/lib/sections";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-const DotsNav = () => {
-    const [activeId, setActiveId] = useState<string>("hero");
+type DotsNavProps = {
+    activeId: string;
+    setActiveId: (id: string) => void;
+    lockedId: string | null;
+    setLockedId: (id: string | null) => void;
+};
 
+const DotsNav = ({ activeId, setActiveId, lockedId, setLockedId }: DotsNavProps) => {
     useEffect(() => {
         const elements = sections.map((s) => document.getElementById(s.id)).filter(Boolean) as HTMLElement[];
 
@@ -13,7 +18,6 @@ const DotsNav = () => {
 
         const observer = new IntersectionObserver(
             (entries) => {
-                // Nos quedamos con la entrada más visible
                 const visible = entries
                     .filter((e) => e.isIntersecting)
                     .sort((a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0))[0];
@@ -23,24 +27,33 @@ const DotsNav = () => {
                 const id = (visible.target as HTMLElement).id;
                 if (!id) return;
 
+                // ✅ LOCK: si estamos navegando, solo actualiza cuando llegamos al destino
+                if (lockedId) {
+                    if (id === lockedId) {
+                        setActiveId(id);
+                        setLockedId(null); // unlock
+                    }
+                    return;
+                }
+
+                // ✅ Scroll normal
                 setActiveId(id);
 
-                if (window.location.hash !== `#${id}`) {
+                // ✅ URL: limpia en home, hash en el resto
+                if (id === "home") {
+                    if (window.location.hash) {
+                        window.history.replaceState(null, "", window.location.pathname);
+                    }
+                } else if (window.location.hash !== `#${id}`) {
                     window.history.replaceState(null, "", `#${id}`);
                 }
             },
-
-            {
-                root: null,
-                // Cuando la sección ocupa ~la mitad de la pantalla, la consideramos "activa"
-                threshold: [0.5, 0.6, 0.7],
-            },
+            { root: null, threshold: [0.5, 0.6, 0.7] },
         );
 
         elements.forEach((el) => observer.observe(el));
-
         return () => observer.disconnect();
-    }, []);
+    }, [lockedId, setActiveId, setLockedId]);
 
     return (
         <div className="fixed right-6 top-1/2 -translate-y-1/2 z-50">
@@ -54,10 +67,12 @@ const DotsNav = () => {
                                 <a
                                     href={`#${section.id}`}
                                     aria-label={section.label}
+                                    onClick={() => setLockedId(section.id)} // ✅ lock navigation
                                     className={`block rounded-full transition-all ${
-                                        isActive ? "h-3 w-3 bg-zinc-900" : "h-2 w-2 bg-zinc-400"
+                                        isActive
+                                            ? "h-3 w-3 bg-[color:var(--accent)]"
+                                            : "h-2 w-2 bg-[color:var(--muted)]"
                                     }`}
-                                    onClick={() => setActiveId(section.id)}
                                 />
                             </li>
                         );
